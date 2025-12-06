@@ -1,0 +1,117 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 100
+
+// Stack structure
+typedef struct {
+    int items[MAX];
+    int top;
+} Stack;
+
+// Initialize stack
+void initStack(Stack *s) {
+    s->top = -1;
+}
+
+// Check if stack is empty
+int isEmpty(Stack *s) {
+    return s->top == -1;
+}
+
+// Check if stack is full
+int isFull(Stack *s) {
+    return s->top == MAX - 1;
+}
+
+// Push element onto stack
+void push(Stack *s, int value) {
+    if (isFull(s)) {
+        printf("Stack Overflow! Cannot push %d\n", value);
+        return;
+  }
+    s->items[++s->top] = value;
+    printf("Pushed %d onto stack\n", value);
+}
+
+// Pop element from stack
+int pop(Stack *s) {
+    if (isEmpty(s)) {
+        printf("Stack Underflow! Cannot pop\n");
+        return -1;
+    }
+    int value = s->items[s->top--];
+    printf("Popped %d from stack\n", value);
+    return value;
+}
+
+// Peek at top element
+int peek(Stack *s) {
+    if (isEmpty(s)) {
+        printf("Stack is empty\n");
+        return -1;
+    }
+    return s->items[s->top];
+}
+
+// Display stack elements
+void displayStack(Stack *s) {
+    if (isEmpty(s)) {
+        printf("Stack is empty\n");
+        return;
+    }
+ printf("Stack elements (top to bottom): ");
+    for (int i = s->top; i >= 0; i--) {
+        printf("%d ", s->items[i]);
+    }
+    printf("\n");
+}
+
+// Get stack size
+int getSize(Stack *s) {
+    return s->top + 1;
+}
+
+// Main simulation
+int main() {
+    Stack stack;
+    initStack(&stack);
+    
+    printf("========== STACK SIMULATION ==========\n\n");
+    
+    // Push operations
+    printf("--- Push Operations ---\n");
+    push(&stack, 10);
+    push(&stack, 20);
+    push(&stack, 30);
+    push(&stack, 40);
+    push(&stack, 50);
+    displayStack(&stack);
+    printf("Stack size: %d\n\n", getSize(&stack));
+    
+    // Peek operation
+    printf("--- Peek Operation ---\n");
+ printf("Top element: %d\n\n", peek(&stack));
+    
+    // Pop operations
+    printf("--- Pop Operations ---\n");
+    pop(&stack);
+    pop(&stack);
+    displayStack(&stack);
+    printf("Stack size: %d\n\n", getSize(&stack));
+    
+    // More operations
+    printf("--- Additional Operations ---\n");
+    push(&stack, 60);
+    push(&stack, 70);
+    displayStack(&stack);
+    printf("Stack size: %d\n\n", getSize(&stack));
+    
+    // Pop all elements
+    printf("--- Pop All Elements ---\n");
+    while (!isEmpty(&stack)) {
+        pop(&stack);
+    }
+    displayStack(&stack);
+    
+    return 0;
+}
