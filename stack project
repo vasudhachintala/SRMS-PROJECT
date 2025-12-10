@@ -112,6 +112,4 @@ int main() {
         pop(&stack);
     }
     displayStack(&stack);
-    
-    return 0;
 }
